@@ -7,11 +7,11 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_HOST_AUTH_METHOD: trust
-      DATABASE_HOST: postgres
-      DATABASE_PORT: 5432
-      DATABASE_USERNAME: postgres
-      DATABASE_PASSWORD: ''
+      POSTGRES_HOST_AUTH_METHOD: password
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
     volumes:
       - ..:/app:cached
       - postgres-data:/var/lib/postgresql/data:cached

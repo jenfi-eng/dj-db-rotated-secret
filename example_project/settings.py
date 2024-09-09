@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "django_extensions",
-    'dj_db_rotated_secret',
     'example_project.posts',
 ]
 
@@ -84,7 +83,16 @@ DATABASES = {
         "HOST": os.environ.get("DB_HOST", "postgres"),
         "PORT": os.environ.get("DB_POST", "5432"),
         "USER": os.environ.get("DB_USER", "postgres"),
-        "PASSWORD": os.environ.get("DB_PASSWORD", ""),
+        "PASSWORD": "postgres",
+        "NAME": "dj_db_rotated_secret",
+        "ATOMIC_REQUESTS": True,
+    },
+    "original": {
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": os.environ.get("DB_HOST", "postgres"),
+        "PORT": os.environ.get("DB_POST", "5432"),
+        "USER": os.environ.get("DB_USER", "postgres"),
+        "PASSWORD": "postgres",
         "NAME": "dj_db_rotated_secret",
         "ATOMIC_REQUESTS": True,
     }
