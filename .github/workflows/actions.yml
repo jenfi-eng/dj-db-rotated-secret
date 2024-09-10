@@ -14,6 +14,8 @@ jobs:
         python-version: ['3.12']
 
     runs-on: ubuntu-latest
+    env:
+      DB_HOST: localhost
 
     steps:
       - name: Checkout code
@@ -27,8 +29,30 @@ jobs:
       - name: Install Poetry
         uses: abatilo/actions-poetry@v3.0.0
 
+      - name: Setup a local .venv
+        run: |
+          poetry config virtualenvs.create true --local
+          poetry config virtualenvs.in-project true --local
+
+      - name: Restore .venv
+        uses: actions/cache/restore@v4.0.2
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
+
       - name: Docker Compose
         uses: hoverkraft-tech/compose-action@v2.0.1
+
+      - name: Setup DB
+        run: |
+          poetry install
+          poetry run python manage.py drop_test_database --noinput
+
+      - name: Store .venv
+        uses: actions/cache/save@v4.0.2
+        with:
+          path: ./.venv
+          key: venv-${{ hashFiles('poetry.lock') }}
 
       - name: Run tests
         run: |
