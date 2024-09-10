@@ -14,10 +14,15 @@ django = ">=4.0"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.2"
 pytest-django = "^4.9.0"
-psycopg2-binary = "^2.9.9"
 factory-boy = "^3.3.1"
 django-extensions = "^3.2.3"
 pre-commit = "^3.8.0"
+
+[tool.poetry.group.psycopg2.dependencies]
+psycopg2-binary = "^2.9.9"
+
+[tool.poetry.group.psycopg3.dependencies]
+psycopg = { extras = ["binary"], version = "^3.2.1" }
 
 [build-system]
 requires = ["poetry-core"]

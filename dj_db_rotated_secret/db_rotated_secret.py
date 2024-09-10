@@ -1,7 +1,15 @@
 import time
 from functools import wraps
 
-import psycopg2
+########################################################
+# For psycopg2 vs psycopg3 handling.
+# Assumes one is installed.
+try:
+    import psycopg as psycopg
+except ImportError:
+    import psycopg2 as psycopg
+########################################################
+
 from django.db import connections
 from django.db.backends.postgresql.base import BaseDatabaseWrapper
 from django.db.utils import OperationalError
@@ -26,7 +34,7 @@ def wrapped_connect(self):
     for attempt in range(max_retries):
         try:
             return original_connect(self)
-        except (psycopg2.OperationalError, OperationalError) as e:
+        except (psycopg.OperationalError, OperationalError) as e:
             if "password authentication failed" not in str(e).lower():
                 raise
             if attempt >= max_retries - 1:
@@ -53,7 +61,7 @@ original_cursor = BaseDatabaseWrapper._cursor
 def wrapped_cursor(self, name=None):
     try:
         return original_cursor(self, name)
-    except (psycopg2.OperationalError, OperationalError) as e:
+    except (psycopg.OperationalError, OperationalError) as e:
         if "password authentication failed" in str(e).lower():
             reconnect_new_credentials()
         else:
