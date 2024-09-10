@@ -50,7 +50,10 @@ This is very much an alpha release. Jenfi uses it in production, but it is entir
 
 - Uses poetry
 
-## Run Tests
+## Running Tests
+
+Run psycopg2 and psycopg3 in isolation (like ci does):
 
 1. Run `docker compose up`
-1. Run `pytest`
+1. Run `chmod +x run_tests.sh`
+1. Run `./run_tests.sh`
