@@ -1,10 +1,14 @@
 [tool.poetry]
 name = "dj-db-rotated-secret"
-version = "0.1.0"
+version = "0.1.1"
 description = "AWS Secrets has a auto-rotation feature, but Django doesn't support it out of the box. This package provides a way to rotate the secret in Django settings."
 authors = ["Justin Louie <224840+nitsujri@users.noreply.github.com>"]
 readme = "README.md"
 packages = [{ include = "dj_db_rotated_secret" }]
+
+[tool.poetry.urls]
+Homepage = "https://github.com/jenfi-eng/dj-db-rotated-secret"
+Issues = "https://github.com/jenfi-eng/dj-db-rotated-secret/issues"
 
 [tool.poetry.dependencies]
 python = ">=3.10"
